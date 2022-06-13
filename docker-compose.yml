@@ -1,0 +1,39 @@
+version: '3.9'
+
+volumes:
+  mysqldata:
+
+services:
+  api:
+    image: node:16.15.1-alpine
+    restart: unless-stopped
+    ports:
+      - 80:80
+    env_file: ./api/.env
+    environment:
+      NODE_ENV: local
+    volumes:
+      - ./api:/app
+      - ./api/.env.local:/app/.env
+    working_dir: /app
+    depends_on:
+      mysql:
+        condition: service_healthy
+    command: sh -c "yarn install && yarn dev"
+
+  mysql:
+    image: mysql:8.0.23
+    platform: linux/amd64
+    ports:
+      - 3306:3306
+    environment:
+      MYSQL_DATABASE: nodejs-sample
+      MYSQL_USER: user
+      MYSQL_PASSWORD: secret
+      MYSQL_ROOT_PASSWORD: secret
+    volumes:
+      - mysqldata:/var/lib/mysql
+    healthcheck:
+      test: [ "CMD", "mysqladmin" ,"ping", "-h", "localhost" ]
+      timeout: 2s
+      retries: 10
