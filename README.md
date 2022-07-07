@@ -1,12 +1,12 @@
-# docker-nodejs-sample
+# nodejs-todo
 
 ## How to use
 
 ### Starting
 
 ```
-git clone git@github.com:kazukinakama/docker-nodejs-sample.git
-cd docker-nodejs-sample
+git clone git@github.com:kazukinakama/nodejs-todo.git
+cd nodejs-todo
 cp ./api/.env.local ./api/.env
 docker compose up -d
 ```
