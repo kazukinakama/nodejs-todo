@@ -1,0 +1,21 @@
+title: PoleEntity
+description: PoleEntity
+type: object
+required:
+  - id
+  - title
+  - content
+  - isDone
+properties:
+  id:
+    type: integer
+    example: 1
+  title:
+    type: string
+    example: 'タスク名'
+  content:
+    type: string
+    example: '内容'
+  isDone:
+    type: boolean
+    example: false

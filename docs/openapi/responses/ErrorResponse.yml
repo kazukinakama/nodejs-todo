@@ -1,0 +1,13 @@
+type: object
+properties:
+  error:
+    type: object
+    properties:
+      message:
+        type: string
+        description: エラーメッセージ
+      code:
+        type: integer
+        description: エラーコード
+    required:
+      - message

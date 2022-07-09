@@ -1,0 +1,8 @@
+type: array
+items:
+  allOf:
+    - type: object
+      properties:
+        id:
+          type: integer
+    - $ref: "../models/Task.yml"

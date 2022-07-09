@@ -1,0 +1,174 @@
+openapi: 3.0.0
+info:
+  contact:
+    name: nodejs-todo
+  title: nodejs-todo
+  description: |
+    ## レポジトリ
+    BE | [API](https://github.com/kazukinakama/nodejs-todo)
+  version: 1.0.0
+servers:
+  - url: http://localhost:80/api
+    description: local
+tags:
+  - name: Tasks
+    description: タスク
+paths:
+  /tasks:
+    get:
+      tags:
+        - Tasks
+      responses:
+        '200':
+          $ref: '#/components/responses/GetTasksResponse'
+        '400':
+          $ref: '#/components/responses/ErrorResponse'
+        '401':
+          $ref: '#/components/responses/ErrorResponse'
+        '403':
+          $ref: '#/components/responses/ErrorResponse'
+        '404':
+          $ref: '#/components/responses/ErrorResponse'
+        '500':
+          $ref: '#/components/responses/ErrorResponse'
+      operationId: getTasks
+      description: 'getTasks'
+    post:
+      tags:
+        - Tasks
+      responses:
+        '200':
+          $ref: '#/components/responses/CreateTaskResponse'
+        '400':
+          $ref: '#/components/responses/ErrorResponse'
+        '401':
+          $ref: '#/components/responses/ErrorResponse'
+        '403':
+          $ref: '#/components/responses/ErrorResponse'
+        '404':
+          $ref: '#/components/responses/ErrorResponse'
+        '500':
+          $ref: '#/components/responses/ErrorResponse'
+      operationId: postTask
+      description: 'postTask'
+      requestBody:
+        $ref: '#/components/requestBodies/CreateTaskRequest'
+  /tasks/{task_id}:
+    get:
+      tags:
+        - Tasks
+      responses:
+        '200':
+          $ref: '#/components/responses/GetTaskResponse'
+        '400':
+          $ref: '#/components/responses/ErrorResponse'
+        '401':
+          $ref: '#/components/responses/ErrorResponse'
+        '403':
+          $ref: '#/components/responses/ErrorResponse'
+        '404':
+          $ref: '#/components/responses/ErrorResponse'
+        '500':
+          $ref: '#/components/responses/ErrorResponse'
+      operationId: getTask
+      description: 'getTask'
+      parameters:
+        - in: path
+          name: task_id
+          schema:
+            type: integer
+          required: true
+    put:
+      tags:
+        - Tasks
+      responses:
+        '200':
+          $ref: '#/components/responses/UpdateTaskResponse'
+        '400':
+          $ref: '#/components/responses/ErrorResponse'
+        '401':
+          $ref: '#/components/responses/ErrorResponse'
+        '403':
+          $ref: '#/components/responses/ErrorResponse'
+        '404':
+          $ref: '#/components/responses/ErrorResponse'
+        '500':
+          $ref: '#/components/responses/ErrorResponse'
+      operationId: putTask
+      description: 'putTask'
+      requestBody:
+        $ref: '#/components/requestBodies/UpdateTaskRequest'
+      parameters:
+        - in: path
+          name: task_id
+          schema:
+            type: integer
+          required: true
+    delete:
+      tags:
+        - Tasks
+      responses:
+        '200':
+          description: OK
+        '400':
+          $ref: '#/components/responses/ErrorResponse'
+        '401':
+          $ref: '#/components/responses/ErrorResponse'
+        '403':
+          $ref: '#/components/responses/ErrorResponse'
+        '404':
+          $ref: '#/components/responses/ErrorResponse'
+        '500':
+          $ref: '#/components/responses/ErrorResponse'
+      operationId: deleteTask
+      description: 'deleteTask'
+      parameters:
+        - in: path
+          name: task_id
+          schema:
+            type: integer
+          required: true
+components:
+  requestBodies:
+    CreateTaskRequest:
+      content:
+        application/json:
+          schema:
+            $ref: ./requests/CreateTaskRequest.yml
+    UpdateTaskRequest:
+      content:
+        application/json:
+          schema:
+            $ref: ./requests/UpdateTaskRequest.yml
+
+  responses:
+    GetTasksResponse:
+      description: OK
+      content:
+        application/json:
+          schema:
+            $ref: ./responses/GetTasksResponse.yml
+    GetTaskResponse:
+      description: OK
+      content:
+        application/json:
+          schema:
+            $ref: ./responses/GetTaskResponse.yml
+    CreateTaskResponse:
+      description: OK
+      content:
+        application/json:
+          schema:
+            $ref: ./responses/CreateTaskResponse.yml
+    UpdateTaskResponse:
+      description: OK
+      content:
+        application/json:
+          schema:
+            $ref: ./responses/UpdateTaskResponse.yml
+    ErrorResponse:
+      description: OK
+      content:
+        application/json:
+          schema:
+            $ref: ./responses/ErrorResponse.yml
