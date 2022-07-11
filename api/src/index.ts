@@ -29,15 +29,18 @@ app.use(
   }),
 )
 
-app.use((req: express.Request, res: express.Response) => {
-  res.status(404).json({ message: 'Not Found'})
-})
-
 app.use((err: any, req: express.Request, res: express.Response, next: express.NextFunction) => {
-  res.status(err.status || 500).json({
-    message: err.message,
-    errors: err.errors,
-  })
+  if (err.status === 404 || err.message === 'Bad Request') {
+    res.status(400).json({ message: 'Bad Request' })
+    return
+  } else if (err.status === 401) {
+    res.status(401).json({ message: err.message })
+    return
+  } else if (err.status === 404) {
+    res.status(404).json({ message: 'Not Found' })
+    return
+  }
+  res.status(500).json({ message: 'Internal Server Error' })
 })
 
 app.listen(port, () => console.log(`Server is running on port ${port}`))
