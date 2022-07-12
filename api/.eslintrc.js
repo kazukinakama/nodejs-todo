@@ -1,26 +1,39 @@
 module.exports = {
   root: true,
+  env: {
+    node: true,
+    jest: true,
+  },
   parser: '@typescript-eslint/parser',
   plugins: ['@typescript-eslint'],
-  env: {
-    browser: true,
-    es2021: true,
-  },
   parserOptions: {
     ecmaVersion: 'latest',
     sourceType: 'module',
     project: './tsconfig.eslint.json',
     tsconfigRootDir: __dirname,
   },
-  ignorePatterns: ['dist'],
+  ignorePatterns: [
+    'specs/**/*.ts',
+  ],
   extends: [
-    'airbnb-base',
-    'airbnb-typescript/base',
-    'plugin:@typescript-eslint/recommended-requiring-type-checking',
+    'eslint:recommended',
+    'plugin:@typescript-eslint/recommended',
   ],
   rules: {
-    'import/prefer-default-export': 'off',
-    '@typescript-eslint/semi': ['error', 'never'],
+    quotes: ['error', 'single'],
+    semi: ['error', 'never'],
+    indent: ['error', 2],
+    'comma-dangle': ['error', 'always-multiline'],
+    'comma-spacing': [1, { 'after': true }],
+    'space-before-function-paren': ['error', {
+      anonymous: 'always',
+      named: 'always',
+      asyncArrow: 'always',
+    }],
+    'space-before-blocks': ['error', 'always'],
+    'key-spacing': [1, { 'afterColon': true }],
+    'object-curly-spacing': ['error', 'always'],
+    '@typescript-eslint/type-annotation-spacing': ['error', { after: true }],
     'no-console': ['error', { allow: ['log', 'warn', 'error'] }],
   },
 }
