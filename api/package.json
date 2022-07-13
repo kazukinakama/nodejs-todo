@@ -8,7 +8,11 @@
     "ts-node": "ts-node ./src/index.ts",
     "dev": "NODE_ENV=local nodemon",
     "lint": "eslint . --ignore-path .gitignore --ext .js,.jsx,.ts,.tsx",
-    "lint:fix": "eslint . --ignore-path .gitignore --fix --ext .js,.jsx,.ts,.tsx"
+    "lint:fix": "eslint . --ignore-path .gitignore --fix --ext .js,.jsx,.ts,.tsx",
+    "prisma:generate": "prisma generate",
+    "prisma:migrate": "prisma migrate dev",
+    "prisma:reset": "prisma migrate reset",
+    "prisma:format": "prisma format"
   },
   "license": "MIT",
   "dependencies": {
