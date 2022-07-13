@@ -1,3 +1,0 @@
-title: CreateTaskRequest
-description: Task作成時のリクエストパラメータ
-$ref: "../models/Task.yml"

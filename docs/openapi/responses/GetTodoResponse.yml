@@ -1,0 +1,3 @@
+required:
+  - id
+$ref: "../models/Todo.yml"

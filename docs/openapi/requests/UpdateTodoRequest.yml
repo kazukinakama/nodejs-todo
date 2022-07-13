@@ -1,0 +1,5 @@
+title: UpdateTodoRequest
+description: Todo更新時のリクエストパラメータ
+required:
+  - id
+$ref: "../models/Todo.yml"

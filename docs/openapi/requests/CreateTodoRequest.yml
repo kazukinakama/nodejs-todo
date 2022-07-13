@@ -1,0 +1,3 @@
+title: CreateTodoRequest
+description: Todo作成時のリクエストパラメータ
+$ref: "../models/Todo.yml"

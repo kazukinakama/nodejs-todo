@@ -11,16 +11,16 @@ servers:
   - url: http://localhost:80/api
     description: local
 tags:
-  - name: Tasks
-    description: タスク
+  - name: Todos
+    description: やること
 paths:
-  /tasks:
+  /todos:
     get:
       tags:
-        - Tasks
+        - Todos
       responses:
         '200':
-          $ref: '#/components/responses/GetTasksResponse'
+          $ref: '#/components/responses/GetTodosResponse'
         '400':
           $ref: '#/components/responses/ErrorResponse'
         '401':
@@ -31,14 +31,14 @@ paths:
           $ref: '#/components/responses/ErrorResponse'
         '500':
           $ref: '#/components/responses/ErrorResponse'
-      operationId: getTasks
-      description: 'getTasks'
+      operationId: getTodos
+      description: 'getTodos'
     post:
       tags:
-        - Tasks
+        - Todos
       responses:
         '200':
-          $ref: '#/components/responses/CreateTaskResponse'
+          $ref: '#/components/responses/CreateTodoResponse'
         '400':
           $ref: '#/components/responses/ErrorResponse'
         '401':
@@ -49,17 +49,17 @@ paths:
           $ref: '#/components/responses/ErrorResponse'
         '500':
           $ref: '#/components/responses/ErrorResponse'
-      operationId: postTask
-      description: 'postTask'
+      operationId: postTodo
+      description: 'postTodo'
       requestBody:
-        $ref: '#/components/requestBodies/CreateTaskRequest'
-  /tasks/{task_id}:
+        $ref: '#/components/requestBodies/CreateTodoRequest'
+  /todos/{todo_id}:
     get:
       tags:
-        - Tasks
+        - Todos
       responses:
         '200':
-          $ref: '#/components/responses/GetTaskResponse'
+          $ref: '#/components/responses/GetTodoResponse'
         '400':
           $ref: '#/components/responses/ErrorResponse'
         '401':
@@ -70,20 +70,20 @@ paths:
           $ref: '#/components/responses/ErrorResponse'
         '500':
           $ref: '#/components/responses/ErrorResponse'
-      operationId: getTask
-      description: 'getTask'
+      operationId: getTodo
+      description: 'getTodo'
       parameters:
         - in: path
-          name: task_id
+          name: todo_id
           schema:
             type: integer
           required: true
     put:
       tags:
-        - Tasks
+        - Todos
       responses:
         '200':
-          $ref: '#/components/responses/UpdateTaskResponse'
+          $ref: '#/components/responses/UpdateTodoResponse'
         '400':
           $ref: '#/components/responses/ErrorResponse'
         '401':
@@ -94,19 +94,19 @@ paths:
           $ref: '#/components/responses/ErrorResponse'
         '500':
           $ref: '#/components/responses/ErrorResponse'
-      operationId: putTask
-      description: 'putTask'
+      operationId: putTodo
+      description: 'putTodo'
       requestBody:
-        $ref: '#/components/requestBodies/UpdateTaskRequest'
+        $ref: '#/components/requestBodies/UpdateTodoRequest'
       parameters:
         - in: path
-          name: task_id
+          name: todo_id
           schema:
             type: integer
           required: true
     delete:
       tags:
-        - Tasks
+        - Todos
       responses:
         '200':
           description: OK
@@ -120,52 +120,52 @@ paths:
           $ref: '#/components/responses/ErrorResponse'
         '500':
           $ref: '#/components/responses/ErrorResponse'
-      operationId: deleteTask
-      description: 'deleteTask'
+      operationId: deleteTodo
+      description: 'deleteTodo'
       parameters:
         - in: path
-          name: task_id
+          name: todo_id
           schema:
             type: integer
           required: true
 components:
   requestBodies:
-    CreateTaskRequest:
+    CreateTodoRequest:
       content:
         application/json:
           schema:
-            $ref: ./requests/CreateTaskRequest.yml
-    UpdateTaskRequest:
+            $ref: ./requests/CreateTodoRequest.yml
+    UpdateTodoRequest:
       content:
         application/json:
           schema:
-            $ref: ./requests/UpdateTaskRequest.yml
+            $ref: ./requests/UpdateTodoRequest.yml
 
   responses:
-    GetTasksResponse:
+    GetTodosResponse:
       description: OK
       content:
         application/json:
           schema:
-            $ref: ./responses/GetTasksResponse.yml
-    GetTaskResponse:
+            $ref: ./responses/GetTodosResponse.yml
+    GetTodoResponse:
       description: OK
       content:
         application/json:
           schema:
-            $ref: ./responses/GetTaskResponse.yml
-    CreateTaskResponse:
+            $ref: ./responses/GetTodoResponse.yml
+    CreateTodoResponse:
       description: OK
       content:
         application/json:
           schema:
-            $ref: ./responses/CreateTaskResponse.yml
-    UpdateTaskResponse:
+            $ref: ./responses/CreateTodoResponse.yml
+    UpdateTodoResponse:
       description: OK
       content:
         application/json:
           schema:
-            $ref: ./responses/UpdateTaskResponse.yml
+            $ref: ./responses/UpdateTodoResponse.yml
     ErrorResponse:
       description: OK
       content:
