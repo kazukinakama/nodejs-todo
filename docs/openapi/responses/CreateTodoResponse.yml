@@ -1,1 +1,5 @@
+required:
+  - id
+  - created_at
+  - updated_at
 $ref: "../models/Todo.yml"
