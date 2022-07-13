@@ -1,3 +1,8 @@
 title: UpdateTodoRequest
 description: Todo更新時のリクエストパラメータ
+required:
+  - id
+  - title
+  - content
+  - is_done
 $ref: "../models/Todo.yml"
