@@ -1,5 +1,5 @@
 -- CreateTable
-CREATE TABLE `tasks` (
+CREATE TABLE `todos` (
     `id` INTEGER NOT NULL AUTO_INCREMENT,
     `title` VARCHAR(255) NOT NULL,
     `content` VARCHAR(191) NULL,

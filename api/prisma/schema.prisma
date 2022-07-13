@@ -10,7 +10,7 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model Task {
+model Todo {
   id        Int      @id @default(autoincrement())
   title     String   @db.VarChar(255)
   content   String?
@@ -18,5 +18,5 @@ model Task {
   createdAt DateTime @default(now()) @map("created_at")
   updatedAt DateTime @updatedAt @map("updated_at")
 
-  @@map("tasks")
+  @@map("todos")
 }
