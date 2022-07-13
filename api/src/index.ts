@@ -1,6 +1,5 @@
 import express, { ErrorRequestHandler, NextFunction, Request, Response } from 'express'
 import * as OpenApiValidator from 'express-openapi-validator'
-import { HttpError } from 'express-openapi-validator/dist/framework/types'
 import { ReasonPhrases, StatusCodes } from 'http-status-codes'
 
 const app = express()
@@ -31,12 +30,7 @@ app.use(
   }),
 )
 
-const errorHandler: ErrorRequestHandler = (
-  err: HttpError,
-  req: Request,
-  res: Response,
-  next: NextFunction,
-): void => {
+const errorHandler: ErrorRequestHandler = (err, req, res, next): void => {
   if (res.headersSent) {
     return next(err)
   }
