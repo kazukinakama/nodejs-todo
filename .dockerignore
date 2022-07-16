@@ -1,0 +1,7 @@
+.git
+.dockerignore
+README.md
+/api/.gitignore
+/api/.env
+/api/node_modules
+/api/specs
