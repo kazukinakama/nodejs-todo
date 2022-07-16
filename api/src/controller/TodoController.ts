@@ -1,5 +1,11 @@
+import { components } from '@/specs/request_response_schema';
 import { PrismaClient, Todo } from '@prisma/client'
 import { NextFunction, Request, Response } from 'express'
+
+export type GetTodosResponse = components['responses']['GetTodosResponse']['content']['application/json'];
+export type GetTodoResponse = components['responses']['GetTodoResponse']['content']['application/json'];
+export type CreateTodoResponse = components['responses']['CreateTodoResponse']['content']['application/json'];
+export type UpdateTodoResponse = components['responses']['UpdateTodoResponse']['content']['application/json'];
 
 const prisma = new PrismaClient()
 
@@ -7,7 +13,17 @@ export class TodoController {
   public async getAll (req: Request, res: Response, next: NextFunction): Promise<void> {
     try {
       const responseData: Todo[] = await prisma.todo.findMany()
-      res.json(responseData)
+      const response: GetTodosResponse = responseData.map((data: Todo) => {
+        return {
+          id: data.id,
+          title: data.title,
+          content: data.content,
+          is_done: data.isDone,
+          created_at: data.createdAt.toLocaleString(),
+          updated_at: data.updatedAt.toLocaleTimeString(),
+        }
+      })
+      res.json(response)
     } catch (err) {
       next(err)
     }
@@ -19,7 +35,19 @@ export class TodoController {
       const responseData: Todo | null = await prisma.todo.findUnique({
         where: { id: id },
       })
-      res.json(responseData ?? {})
+      if (!responseData) {
+        res.status(404).end()
+        return;
+      }
+      const response: GetTodoResponse = {
+        id: responseData.id,
+        title: responseData.title,
+        content: responseData.content,
+        is_done: responseData.isDone,
+        created_at: String(responseData.createdAt),
+        updated_at: String(responseData.updatedAt),
+      }
+      res.json(response)
     } catch (err) {
       next(err)
     }
@@ -35,7 +63,15 @@ export class TodoController {
           isDone: is_done,
         },
       })
-      res.json(responseData)
+      const response: CreateTodoResponse = {
+        id: responseData.id,
+        title: responseData.title,
+        content: responseData.content,
+        is_done: responseData.isDone,
+        created_at: String(responseData.createdAt),
+        updated_at: String(responseData.updatedAt),
+      }
+      res.json(response)
     } catch (err) {
       next(err)
     }
@@ -44,6 +80,13 @@ export class TodoController {
   public async put (req: Request, res: Response, next: NextFunction): Promise<void> {
     try {
       const id: number = +req.params.id
+      const entity: Todo | null = await prisma.todo.findUnique({
+        where: { id: id },
+      })
+      if (!entity) {
+        res.status(404).end()
+        return;
+      }
       const { title, content, is_done } = req.body
       const responseData: Todo = await prisma.todo.update({
         where: { id: id },
@@ -53,7 +96,15 @@ export class TodoController {
           isDone: is_done,
         },
       })
-      res.json(responseData)
+      const response: UpdateTodoResponse = {
+        id: responseData.id,
+        title: responseData.title,
+        content: responseData.content,
+        is_done: responseData.isDone,
+        created_at: String(responseData.createdAt),
+        updated_at: String(responseData.updatedAt),
+      }
+      res.json(response)
     } catch (err) {
       next(err)
     }
@@ -62,6 +113,13 @@ export class TodoController {
   public async delete (req: Request, res: Response, next: NextFunction): Promise<void> {
     try {
       const id: number = +req.params.id
+      const entity: Todo | null = await prisma.todo.findUnique({
+        where: { id: id },
+      })
+      if (!entity) {
+        res.status(404).end()
+        return;
+      }
       const responseData: Todo = await prisma.todo.delete({
         where: { id: id },
       })
